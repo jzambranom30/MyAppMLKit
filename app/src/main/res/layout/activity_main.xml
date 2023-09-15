@@ -24,19 +24,19 @@
 
     <Button
         android:id="@+id/btGallery"
-        android:layout_margin="5dp"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:onClick="abrirGaleria"
         android:text="Galería"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitulo"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/btCamera" />
+        app:layout_constraintRight_toLeftOf="@+id/btCamera"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitulo" />
 
     <Button
         android:id="@+id/btCamera"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:onClick="abrirCamera"
         android:text="Cámara"
@@ -47,12 +47,13 @@
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="400dp"
         android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtresults"
+        android:layout_marginStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btGallery"
-        app:srcCompat="@drawable/frase"
-        tools:layout_editor_absoluteX="10dp" />
+        app:srcCompat="@drawable/frase" />
 
     <TextView
         android:id="@+id/txtresults"
@@ -62,29 +63,40 @@
         android:inputType="textMultiLine"
         android:scrollbars="vertical"
         android:text="Resultados:"
-        app:layout_constraintBottom_toTopOf="@id/btText"
-        tools:layout_editor_absoluteX="10dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_view" />
 
     <Button
         android:id="@+id/btText"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:onClick="OCRfx"
         android:text="OCR"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/btFace" />
+        app:layout_constraintBottom_toBottomOf="@+id/btFace"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btFace"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:onClick="Rostrosfx"
         android:text="Rostros"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/btText"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtresults" />
+
+    <Button
+        android:id="@+id/btFaceModel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:onClick="PersonalizedModel"
+        android:text="Modelo"
+        app:layout_constraintBottom_toBottomOf="@+id/btFace"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

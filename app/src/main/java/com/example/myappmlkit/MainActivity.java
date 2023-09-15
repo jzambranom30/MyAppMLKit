@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myappmlkit.ml.Model;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.mlkit.vision.common.InputImage;
@@ -28,7 +29,13 @@ import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
+import org.tensorflow.lite.DataType;
+import org.tensorflow.lite.support.image.TensorImage;
+import org.tensorflow.lite.support.label.Category;
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
+
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -142,5 +149,40 @@ public class MainActivity extends AppCompatActivity
                     }
                 })
                 .addOnFailureListener(this);
+    }
+
+    public void PersonalizedModel(View v) {
+        try {
+            Model model = Model.newInstance(getApplicationContext());
+
+            // Creates inputs for reference.
+            Bitmap imagen_escalada = Bitmap.createScaledBitmap(mSelectedImage,
+                    224, 224, true);
+            TensorImage image = new TensorImage(DataType.FLOAT32);
+            image.load(imagen_escalada);
+            TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
+            inputFeature0.loadBuffer(image.getBuffer());
+
+            // Runs model inference and gets result.
+            Model.Outputs outputs = model.process(inputFeature0);
+            TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
+
+            String[] etiquetas = {"daysi", "dandelion", "roses", "sunflowers", "tulips"};
+            float vMayor=Float.MIN_VALUE;
+            int pos=1;
+            float[] resp = outputFeature0.getFloatArray();
+            for(int i=0; i<resp.length;i++){
+                if(resp[i]>vMayor) {
+                    vMayor = resp[i];
+                    pos = i;
+                }
+            }
+            txtResults.setText("El resultado es: "+ etiquetas[pos] + " "+ resp[pos]*100);
+
+            // Releases model resources if no longer used.
+            model.close();
+        } catch (IOException e) {
+            txtResults.setText("Error al procesar Modelo");
+        }
     }
 }
