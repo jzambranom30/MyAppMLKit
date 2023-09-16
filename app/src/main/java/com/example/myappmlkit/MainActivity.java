@@ -172,12 +172,12 @@ public class MainActivity extends AppCompatActivity
             int pos=-1;
             float[] resp = outputFeature0.getFloatArray();
             for(int i=0; i<resp.length;i++){
-                if(resp[i]>vMayor) {
+                if(resp[i]>=vMayor) {
                     vMayor = resp[i];
                     pos = i;
                 }
             }
-            txtResults.setText("El resultado es: "+ etiquetas[pos] + " "+ resp[pos]*100);
+            txtResults.setText("El resultado es: "+ etiquetas[pos] + " "+ resp[pos]*100 + " %");
 
             // Releases model resources if no longer used.
             model.close();
