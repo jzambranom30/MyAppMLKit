@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity
 
             String[] etiquetas = {"daysi", "dandelion", "roses", "sunflowers", "tulips"};
             float vMayor=Float.MIN_VALUE;
-            int pos=1;
+            int pos=-1;
             float[] resp = outputFeature0.getFloatArray();
             for(int i=0; i<resp.length;i++){
                 if(resp[i]>vMayor) {
